@@ -1,0 +1,848 @@
+:root {
+  font-size: 62.5%; /* A cada 1rem - equivale a 10px;  */
+  --hue: 444;
+  --primary-color: hsl(var(--hue), 100%, 26%);
+  --primary-color-dark: hsl(var(--hue), 100%, 14%);
+
+  --brand-green: hsl(calc(var(--hue) - 22), 23%, 89%);
+  --headline-color: hsl(210, 11%, 15%);
+  --paragraph-color: hsl(210, 9%, 31%);
+
+  --background-green-light: hsl(180, 14%, 97%);
+  --background-cards: hsl(148, 23%, 89%);
+  --background-about: hsl(39, 100%, 97%);
+  --white: hsl(0, 0%, 100%);
+
+  --height-nav: 7.2rem;
+}
+
+* {
+  margin: 0; /*Para todos meus elementos da pagina*/
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* custom colors  */
+#navigation .logo path[fill*='#00856F'] {
+  fill: var(--primary-color);
+}
+
+#navigation .open-button path {
+  stroke: var(--primary-color);
+}
+
+#navigation.scroll .logo path {
+  fill: white;
+}
+
+#navigation.scroll .open-button path {
+  stroke: white;
+}
+
+#contact ul li path {
+  stroke: var(--primary-color);
+}
+.menu-expanded #navigation .logo path[fill*='#00856F'] {
+  fill: white;
+}
+
+#backToHome circle {
+  fill: var(--primary-color);
+}
+
+section header h1 {
+  font-size: 3.4rem;
+  line-height: 130%;
+  margin-bottom: 2.4rem;
+}
+
+section header h2 {
+  font-size: 3rem;
+  line-height: 3.9rem;
+}
+
+section header h4 {
+  color: var(--primary-color);
+  font-size: 1.4rem;
+  margin-bottom: 1.6rem;
+  text-transform: uppercase;
+}
+
+/* section {
+  margin-block: 10rem;
+} */
+
+.wrapper {
+  /* Usado no header e nav */
+  width: min(50rem, 100%);
+  margin-inline: auto;
+  padding-inline: 2.4rem;
+}
+
+/* Butão usado no home e contact */
+#home button.agende-consulta,
+#contact button.agende-consulta {
+  height: 5.2rem;
+  /* width: 26.3rem; */
+
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 4rem;
+  padding: 1.6rem 3.2rem;
+
+  display: flex;
+  align-items: center;
+
+  color: var(--white);
+  font-weight: 700;
+  font-size: 1.3rem;
+  cursor: pointer;
+
+  transition: background 0.2s;
+}
+
+#home button.agende-consulta:hover,
+#contact button.agende-consulta:hover {
+  background: var(--primary-color-dark);
+}
+
+/* ---------Navigation-------------------- */
+nav {
+  display: flex;
+
+  height: var(--height-nav);
+  position: fixed;
+  top: 0;
+
+  /* Left 50% deixa o conteudo iniciando ao centro
+  o transform vai determinar o alinhamento ao centro do conteudo */
+  z-index: 100;
+  width: 100vw;
+  transition: 0.2s;
+}
+
+nav .wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav.scroll {
+  background: var(--primary-color);
+}
+
+/* nav.scroll svg:nth-child(1) path {
+  /* nth-child vai enumerar um grupo de elementos irmãos (svg(1), svg(2))*/
+/* Poderia usar um id para referenciar cada um */
+/* Para o primeiro svg - Ao encontra-lo estou alterando as propriedades de cada path (fill) para white 
+  fill: white;
+} */
+nav.scroll .logo svg path {
+  fill: white;
+}
+
+nav.scroll button path {
+  /* Encontrando o caminho para o segundo svg - Ao encontra-lo estou alterando as propiedades path (fill) para white*/
+  stroke: white;
+}
+
+/* ----------Menu.expanded------------------- */
+@keyframes Top_to_bottom {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+
+@keyframes opacity {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.menu-expanded .menu .visible {
+  animation-name: opacity;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in;
+}
+
+body.menu-expanded {
+  /* Não permite uso do scroll */
+  overflow: hidden;
+}
+
+body.menu-expanded .menu {
+  background: var(--primary-color);
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  padding-top: calc(var(--height-nav) + 10rem);
+
+  /* Animação para trazer menu pra baixo */
+  animation-name: Top_to_bottom;
+  animation-duration: 300ms;
+  animation-timing-function: ease-out;
+}
+
+body.menu-expanded > :not(nav) {
+  /* Desabilita o display de todos os elementos exceto o nav*/
+  display: hidden;
+}
+
+body .close-button,
+body .menu,
+body.menu-expanded .open-button {
+  /* opacity: 0;
+  visibility: hidden; */
+  display: none;
+}
+
+body.menu-expanded .close-button,
+body.menu-expanded .menu {
+  /* opacity: 1;
+  visibility: visible; */
+  display: block;
+}
+
+body.menu-expanded ul li a {
+  color: white;
+}
+
+body.menu-expanded ul:nth-child(1) {
+  /* Pois as configurações desse ul estavam afetando o social links */
+  display: flex;
+  flex-direction: column;
+  gap: 4.8rem;
+
+  font-size: 2.4rem;
+  font-weight: bold;
+
+  padding-bottom: 4.8rem;
+}
+
+body.menu-expanded ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 13.6rem;
+
+  padding: 0;
+  margin-inline: auto;
+}
+
+body.menu-expanded .menu .button a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-bottom: 8rem;
+  margin-inline: auto;
+
+  width: 27.4rem;
+  height: 5.5rem;
+
+  border: none;
+  border-radius: 4rem;
+
+  background: var(--white);
+  color: var(--primary-color);
+  line-height: 2.3rem;
+  font-size: 1.7rem;
+  text-transform: uppercase;
+
+  opacity: 1;
+  cursor: pointer;
+}
+
+body.menu-expanded .menu .button a:hover {
+  filter: brightness(1.4);
+  background: var(--primary-color);
+  color: white;
+
+  font-weight: bold;
+}
+
+body.menu-expanded nav .logo,
+body.menu-expanded .close-button {
+  position: relative;
+  z-index: 100;
+}
+
+.menu-expanded .close-button,
+body .open-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.menu-expanded nav .logo path {
+  fill: white;
+}
+
+.menu-expanded nav button path {
+  stroke: white;
+}
+
+.menu-expanded nav {
+  background-color: var(--primary-color);
+  transition: 200ms;
+}
+
+/* ----------HOME-------------------------------------------*/
+body {
+  text-align: center;
+  font-family: 'DM Sans';
+  font-size: 1.6rem; /*Retornando aos meus 16px default;  */
+
+  overflow: overlay; /*Impede que o scroll desalinhe o nav*/
+  background: var(--background-green-light);
+}
+
+#home {
+  padding-top: calc(4.1rem + var(--height-nav));
+}
+
+#home::before {
+  /*iniciando com conteudo vazio, pseodo elemento (Antes do meu header)
+  - colocando o display: block, para poder receber as propriedades de caixa
+  - Definindo a position absolute e posicionando do topo esquerdo
+  - Defindo largura com 100% da viewport
+  - Z-index colocando esse background atraz de todos os elementos
+  */
+  content: '';
+  background-color: var(--brand-green);
+  display: block;
+  width: 100vw;
+  height: calc(87% - var(--height-nav));
+
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  width: 100%; /*antes era 100vw, porem não conta com o scroll*/
+}
+
+#home p {
+  color: var(--paragraph-color);
+  font-size: 1.8rem;
+  line-height: 150%;
+
+  margin-bottom: 3.2rem;
+}
+
+#home .girl-image {
+  display: block;
+  object-position: 0rem 3rem; /* A tag pega a box-image, o object trata a propria imagem*/
+
+  width: 26.4rem; /*Para o tamanho ser responsivo*/
+  margin-inline: auto;
+}
+
+#home button.agende-consulta {
+  margin-inline: auto;
+}
+
+#home button img {
+  margin-right: 1.6rem;
+}
+
+#home .stats {
+  background-color: var(--background-about);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 6rem; /*Space between entre elemeto, não fora deles*/
+
+  width: 100%;
+  padding: 4rem 8rem;
+  margin-inline: auto;
+
+  font-size: 4.8rem;
+
+  border: 1.5px solid var(--brand-green);
+  border-radius: 0.6rem;
+  /* margin-inline, margin-block
+     padding-inline, padding-block
+     
+     preenchimento nos dois lados, inline - eixo X, block eixo Y
+  */
+}
+
+#home .stats h3 {
+  margin-bottom: 0.4rem;
+  line-height: 130%;
+  font-size: 4.8rem;
+}
+
+#home .stat p {
+  color: var(--primary-color);
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+
+  line-height: 150%;
+}
+
+/*----------------services----------------- */
+#services {
+  padding-top: 10rem;
+}
+
+#services header h2 {
+  margin-bottom: 6rem;
+}
+
+#services .cards {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+
+  text-align: left;
+  margin-bottom: 10rem;
+}
+
+#services .card {
+  border: 1.5px solid var(--brand-green);
+  border-radius: 0.6rem;
+  background: white;
+
+  padding: 2.4rem;
+}
+
+#services .cards h3 {
+  margin-block: 1.6rem;
+}
+
+#services .cards p {
+  line-height: 150%;
+}
+
+/* -------------about ----------------- */
+#about {
+  background: var(--background-about);
+}
+
+#about h4 {
+  margin-bottom: 1.6rem;
+  padding-top: 10rem;
+  text-align: left;
+}
+
+#about h2 {
+  margin-bottom: 2.4rem;
+  text-align: left;
+}
+
+#about p {
+  text-align: justify;
+  margin-bottom: 6rem;
+}
+
+#about img {
+  margin-bottom: 10rem;
+}
+
+/* ---------------contact-------------- */
+#contact {
+  background: white;
+}
+
+#contact h2 {
+  line-height: 3.9rem;
+  text-align: left;
+
+  padding-top: 10rem;
+  margin-bottom: 3.2rem;
+}
+
+#contact .content ul li {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+#contact .content ul li:nth-child(1) {
+  margin-bottom: 1.6rem;
+}
+
+#contact .content ul li:nth-child(2) {
+  margin-bottom: 3.2rem;
+}
+
+#contact .content svg {
+  margin-right: 0.8rem;
+}
+
+#contact .man-using-phone {
+  margin: 6rem 0 10rem;
+}
+
+#contact button img {
+  margin-right: 1.6rem;
+}
+
+/* ------------footer--------------- */
+
+footer {
+  background: var(--primary-color);
+  color: white;
+  text-align: left;
+}
+
+footer svg.logo {
+  margin-top: 8rem;
+  margin-bottom: 2.4rem;
+  height: 3.1rem;
+  width: 23.6rem;
+}
+
+footer ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+footer .contact-text li:nth-child(2) {
+  margin-bottom: 8rem;
+}
+
+footer .social-links {
+  flex-direction: row;
+  gap: 3.2rem;
+  padding-bottom: 6rem;
+}
+
+footer svg.logo path {
+  fill: white;
+}
+
+#backToHome {
+  position: fixed;
+  bottom: 1rem;
+  right: 3.5rem;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(100%);
+  transition: 0.2s;
+}
+
+#backToHome.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+@media (min-width: 1024px) {
+  body {
+    overflow: auto;
+  }
+
+  .wrapper {
+    width: min(120rem, 100%);
+    display: grid;
+  }
+
+  .col-a {
+    grid-area: A;
+  }
+
+  .col-b {
+    grid-area: B;
+  }
+
+  section header h1 {
+    font-size: 4.4rem;
+  }
+
+  section header h2 {
+    font-size: 3.8rem;
+    line-height: 5.2rem;
+  }
+
+  section#home {
+    padding-bottom: 0;
+  }
+
+  section#home::before {
+    height: calc(96% - var(--height-nav));
+  }
+
+  nav#navigation .wrapper * {
+    margin: 0;
+    padding: 0;
+    text-align: initial;
+    display: initial;
+    position: initial;
+    transform: initial;
+    visibility: initial;
+    opacity: initial;
+    font-size: initial;
+  }
+
+  nav#navigation .close-button,
+  nav#navigation .open-button,
+  nav#navigation .social-links {
+    display: none;
+  }
+
+  nav#navigation .menu {
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  nav#navigation ul:nth-child(1) {
+    display: flex;
+    gap: 3.2rem;
+  }
+
+  nav#navigation .menu ul li a {
+    color: var(--primary-color);
+    opacity: 0.6;
+  }
+
+  nav#navigation .menu .button a {
+    border: 1px solid var(--primary-color);
+    border-radius: 4rem;
+    padding: 1rem 2.4rem;
+
+    color: var(--primary-color);
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 1.8rem;
+    font-size: 1.4rem;
+  }
+
+  nav#navigation.scroll ul li a {
+    color: var(--white);
+  }
+
+  nav#navigation.scroll .menu .button a {
+    border-color: var(--white);
+    color: var(--white);
+    font-weight: normal;
+  }
+
+  nav#navigation .menu ul li a {
+    transition: opacity 0.4s;
+  }
+
+  nav#navigation .menu ul li a:hover,
+  nav#navigation .menu ul li a.active {
+    opacity: 1;
+    font-weight: 700;
+  }
+
+  nav#navigation .menu ul li a::after,
+  nav#navigation .menu ul li a::after {
+    content: '';
+
+    background: var(--primary-color);
+    width: 0%;
+    height: 2px;
+
+    text-align: center;
+    display: block;
+
+    position: relative;
+    bottom: -2.4rem;
+    left: -1.2rem;
+    transition: width 0.2s;
+  }
+
+  nav#navigation.scroll .menu ul li a::after {
+    background: var(--white);
+  }
+
+  nav#navigation .menu ul li a:hover::after,
+  nav#navigation .menu ul li a.active::after {
+    width: 100%;
+    padding-inline: 1.2rem;
+  }
+
+  nav#navigation .menu .button a:hover,
+  nav#navigation .menu .button a.active {
+    background: var(--primary-color);
+    color: white;
+  }
+
+  nav#navigation.scroll .menu .button a:hover,
+  nav#navigation.scroll .menu .button a.active {
+    filter: brightness(1.3);
+    border: none;
+  }
+
+  /* grid areas */
+  #home .wrapper {
+    grid-template-columns: 2fr 1fr;
+
+    /* Definindo nome das areas do meu grid */
+    grid-template-areas: 'A B' 'C C';
+  }
+
+  #home {
+    padding: var(--height-nav);
+  }
+
+  #home .col-a {
+    align-self: center;
+    text-align: left;
+  }
+
+  #home button.agende-consulta {
+    margin: 0;
+  }
+
+  #home .col-b img {
+    width: 40.2rem;
+  }
+
+  #home .stats {
+    grid-area: C;
+    flex-direction: row;
+    padding: 6rem;
+    gap: 0;
+  }
+
+  #home .stats .stat {
+    flex: 1;
+  }
+
+  #home .stats .stat + .stat {
+    border-left: 1px solid var(--brand-green);
+  }
+
+  /* -------------services--------------------- */
+  #services {
+    padding-top: 16rem;
+  }
+
+  #services .card {
+    width: 30%;
+    flex-grow: 1;
+  }
+
+  #services .cards {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 16rem;
+  }
+
+  #services header h2 {
+    margin: 0 auto 11.6rem;
+  }
+
+  /* ----------about ---------------- */
+  #about .wrapper {
+    grid-template-columns: 48rem 1fr;
+    grid-template-areas: 'B A';
+    gap: 6.7rem;
+    padding-block: 16rem;
+  }
+
+  #about p {
+    text-align: left;
+  }
+
+  #about .col-a {
+    align-self: center;
+  }
+
+  #about .col-b {
+    align-self: center;
+  }
+
+  #about .col-a h4 {
+    padding: 0;
+  }
+
+  #about .col-b img,
+  #about .col-a p {
+    margin: 0;
+  }
+
+  /* ---------contact ------------- */
+  #contact .wrapper {
+    grid-template-areas: 'A B';
+    padding-block: 16rem;
+    gap: 14.1rem;
+  }
+
+  #contact .col-a {
+    align-self: center;
+  }
+
+  #contact .col-b {
+    align-self: center;
+  }
+
+  #contact .col-a h2 {
+    margin-top: 0;
+    padding: 0;
+  }
+
+  #contact .col-b img {
+    margin: 0;
+    width: 57.5rem;
+  }
+
+  #contact h2 {
+    width: 40.4rem;
+  }
+
+  /* ---------footer ------------- */
+  footer .wrapper {
+    grid-template-areas: 'A B';
+  }
+
+  footer .col-a {
+    align-self: center;
+  }
+
+  footer .col-b {
+    align-self: center;
+  }
+
+  footer .col-b .social-links {
+    padding: 0;
+    justify-content: end;
+  }
+}
