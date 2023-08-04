@@ -1,4 +1,5 @@
 window.addEventListener('scroll', onScroll)
+const navigation = document.querySelector('#navigation')
 
 onScroll()
 function onScroll() {
@@ -6,6 +7,7 @@ function onScroll() {
   // acessando o classList - posso adicionar .add uma classe.
   showNavOnScroll()
   showButtonToHomeOnScroll()
+
   activeCurrentSection(home)
   activeCurrentSection(services)
   activeCurrentSection(about)
@@ -64,35 +66,8 @@ function activeCurrentSection(section) {
 }
 // ----------- show button "back to top"
 
-// Funcao simplificada
-// function funcExt() {
-//   return {
-//     funcInt: function () {
-//       console.log('execultando função interna')
-//     }
-//   }
-// }
-
-// Funcao não simplificada
-// function funcExt1() {
-//   var object = {
-//     funcInt1: function () {
-//       console.log('executando func interna 1')
-//     }
-//   }
-//   return object
-// }
-
-// funcExt().funcInt()
-// funcExt1().funcInt1()
-
 ScrollReveal({
   origin: 'top',
-  duration: 200,
-  distance: '30px'
-}).reveal(
-  ` #home, #home .girl-image, .stats,
-    #services header, .card,
-    #about header, #about .content, #about img,
-    #contact header, #contact .content, #contact .man-using-phone`
-)
+  duration: 1000,
+  distance: '50px'
+}).reveal(`#home`)
