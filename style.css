@@ -1,6 +1,6 @@
 :root {
   font-size: 62.5%; /* A cada 1rem - equivale a 10px;  */
-  --hue: 444;
+  --hue: 536;
   --primary-color: hsl(var(--hue), 100%, 26%);
   --primary-color-dark: hsl(var(--hue), 100%, 14%);
 
